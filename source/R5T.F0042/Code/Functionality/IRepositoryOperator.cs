@@ -16,7 +16,7 @@ namespace R5T.F0042
 		/// Creates a repository and returns the local repository directory path.
 		/// </summary>
 		/// <returns>The local repository directory path.</returns>
-		public async Task<string> CreateNew_NonIdempotent(
+		public async Task<RepositoryLocationsPair> CreateNew_NonIdempotent(
 			GitHubRepositorySpecification repositorySpecification,
 			ILogger logger)
 		{
@@ -28,7 +28,7 @@ namespace R5T.F0042
 
 			logger.LogInformation($"Creating new remote GitHub repository '{ownedRepositoryName}'...");
 
-			await Instances.GitHubOperator.CreateRepository_NonIdempotent(repositorySpecification);
+			var repository = await Instances.GitHubOperator.CreateRepository_NonIdempotent(repositorySpecification);
 
 			logger.LogInformation($"Created new remote GitHub repository '{ownedRepositoryName}'.");
 
@@ -43,7 +43,15 @@ namespace R5T.F0042
 
 			logger.LogInformation($"New empty repository created.");
 
-			return localRepositoryDirectoryPath;
+			var repositoryUrl = Instances.OctokitRepositoryOperator.GetRepositoryUrl(repository);
+
+			var repositoryLocationsPair = new RepositoryLocationsPair
+            {
+				LocalDirectoryPath = localRepositoryDirectoryPath,
+				RemoteUrl = repositoryUrl,
+            };
+
+			return repositoryLocationsPair;
 		}
 
 		public string Create_GitIgnoreFile_Idempotent(
@@ -103,7 +111,7 @@ namespace R5T.F0042
 			string repositoryOwnerName,
 			ILogger logger)
 		{
-			var repositoryDirectoryPath = Instances.DirectoryPathOperator.GetRepositoryDirectory(repositoryOwnerName, repositoryName);
+			var repositoryDirectoryPath = Instances.RepositoryDirectoryPathOperator.GetRepositoryDirectory(repositoryOwnerName, repositoryName);
 
 			logger.LogInformation($"Deleting repository '{repositoryName}'...");
 
@@ -124,13 +132,6 @@ namespace R5T.F0042
 			logger.LogInformation("Deleted remote GitHub repository.");
 
 			logger.LogInformation($"Deleted repository '{repositoryName}'.");
-		}
-
-		public string Get_RepositoryDescription_FromLibraryDescription(string libraryDescription)
-		{
-			// The repository description is just the library description.
-			var output = libraryDescription;
-			return output;
 		}
 
 		public GitHubRepositorySpecification Get_RepositorySpecification(
@@ -154,13 +155,13 @@ namespace R5T.F0042
 			return output;
 		}
 
-		public void PerformInitialCommit_NoResult(
+		public void PerformInitialCommit(
 			string repositoryLocalDirectoryPath,
 			ILogger logger)
 		{
 			logger.LogInformation($"Performing initial commit...\n\t{repositoryLocalDirectoryPath}");
 
-			Instances.GitHubOperator.PushAllChanges_NoResult(
+			Instances.GitHubOperator.PushAllChanges(
 				repositoryLocalDirectoryPath,
 				Instances.CommitMessages.InitialCommit,
 				logger);

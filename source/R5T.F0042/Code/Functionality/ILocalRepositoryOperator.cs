@@ -10,7 +10,7 @@ namespace R5T.F0042
 	{
 		public bool RepositoryExists(string repositoryOwnerName, string repositoryName)
 		{
-			var repositoryDirectoryPath = Instances.DirectoryPathOperator.GetRepositoryDirectory(
+			var repositoryDirectoryPath = Instances.RepositoryDirectoryPathOperator.GetRepositoryDirectory(
 				repositoryOwnerName,
 				repositoryName);
 
@@ -26,7 +26,7 @@ namespace R5T.F0042
 
 		public void VerifyRepositoryDoesNotExist(string repositoryOwnerName, string repositoryName)
 		{
-			var repositoryDirectoryPath = Instances.DirectoryPathOperator.GetRepositoryDirectory(
+			var repositoryDirectoryPath = Instances.RepositoryDirectoryPathOperator.GetRepositoryDirectory(
 				repositoryOwnerName,
 				repositoryName);
 
