@@ -31,16 +31,28 @@ namespace R5T.F0042
 			string repositoryOwnerName,
 			string repositoryName)
 		{
-            var repositoryDirectoryPath = F0057.RepositoryDirectoryPathOperator.Instance.GetRepositoryDirectory(repositoryOwnerName, repositoryName);
+            var localRepositoryDirectoryPath = F0057.RepositoryDirectoryPathOperator.Instance.GetRepositoryDirectoryPath(repositoryOwnerName, repositoryName);
 
-            F0000.FileSystemOperator.Instance.DeleteDirectory_NonIdempotent(repositoryDirectoryPath);
+			this.Delete(localRepositoryDirectoryPath);
 
-			return repositoryDirectoryPath;
+			return localRepositoryDirectoryPath;
+        }
+
+        public void Delete_Idempotent(
+            string localRepositoryDirectoryPath)
+        {
+            F0000.FileSystemOperator.Instance.DeleteDirectory_Idempotent(localRepositoryDirectoryPath);
+        }
+
+        public void Delete(
+			string localRepositoryDirectoryPath)
+		{
+            F0000.FileSystemOperator.Instance.DeleteDirectory_NonIdempotent(localRepositoryDirectoryPath);
         }
 
 		public bool RepositoryExists(string repositoryOwnerName, string repositoryName)
 		{
-			var repositoryDirectoryPath = Instances.RepositoryDirectoryPathOperator.GetRepositoryDirectory(
+			var repositoryDirectoryPath = Instances.RepositoryDirectoryPathOperator.GetRepositoryDirectoryPath(
 				repositoryOwnerName,
 				repositoryName);
 
@@ -56,7 +68,7 @@ namespace R5T.F0042
 
 		public void VerifyRepositoryDoesNotExist(string repositoryOwnerName, string repositoryName)
 		{
-			var repositoryDirectoryPath = Instances.RepositoryDirectoryPathOperator.GetRepositoryDirectory(
+			var repositoryDirectoryPath = Instances.RepositoryDirectoryPathOperator.GetRepositoryDirectoryPath(
 				repositoryOwnerName,
 				repositoryName);
 

@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using R5T.F0041;
 using R5T.T0132;
 
+using N000 = R5T.F0042.N000;
+
 
 namespace R5T.F0042
 {
@@ -111,7 +113,7 @@ namespace R5T.F0042
 			string repositoryOwnerName,
 			ILogger logger)
 		{
-			var repositoryDirectoryPath = Instances.RepositoryDirectoryPathOperator.GetRepositoryDirectory(repositoryOwnerName, repositoryName);
+			var repositoryDirectoryPath = Instances.RepositoryDirectoryPathOperator.GetRepositoryDirectoryPath(repositoryOwnerName, repositoryName);
 
 			logger.LogInformation($"Deleting repository '{repositoryName}'...");
 
@@ -155,6 +157,20 @@ namespace R5T.F0042
 			return output;
 		}
 
+		/// <summary>
+		/// Add, commit, and push to remote, all in one command.
+		/// </summary>
+		public void Checkin(
+			string localRepositoryDirectoryPath,
+			string commitMessage,
+            ILogger logger)
+		{
+            Instances.GitHubOperator.PushAllChanges(
+                localRepositoryDirectoryPath,
+                commitMessage,
+                logger);
+        }
+
 		public void PerformInitialCommit(
 			string repositoryLocalDirectoryPath,
 			ILogger logger)
@@ -197,12 +213,12 @@ namespace R5T.F0042
 			}
 		}
 
-		public string SetupRepository(
+		public N000.RepositoryResult SetupRepository(
 			string repositoryDirectoryPath,
 			ILogger logger)
 		{
 			// Gitignore file.
-			var _ = this.Create_GitIgnoreFile_Idempotent(
+			var gitIgnoreFilePath = this.Create_GitIgnoreFile_Idempotent(
 				repositoryDirectoryPath,
 				logger);
 
@@ -211,10 +227,18 @@ namespace R5T.F0042
 				repositoryDirectoryPath,
 				logger);
 
-			return repositorySourceDirectoryPath;
+			var repositorySetup = new N000.RepositoryResult
+			{
+				GitIgnoreFilePath = gitIgnoreFilePath,
+				SourceDirectoryPath = repositorySourceDirectoryPath,
+			};
+
+			return repositorySetup;
 		}
 
-		public async Task Verify_RepositoryDoesNotExist(string repositoryOwnerName, string repositoryName)
+		public async Task Verify_RepositoryDoesNotExist(
+			string repositoryOwnerName,
+			string repositoryName)
 		{
 			await Instances.RemoteRepositoryOperator.VerifyRepositoryDoesNotExist(
 				repositoryOwnerName,

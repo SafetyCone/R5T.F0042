@@ -6,9 +6,8 @@ using R5T.T0131;
 namespace R5T.F0042
 {
 	[ValuesMarker]
-	public partial interface IFileNames : IValuesMarker
+	public partial interface IFileNames : IValuesMarker,
+		F0057.IFileNames
 	{
-		public string GitIgnore => ".gitignore";
-		public string License => "LICENSE";
 	}
 }
