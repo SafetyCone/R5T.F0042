@@ -179,7 +179,7 @@ namespace R5T.F0042
 
 			Instances.GitHubOperator.PushAllChanges(
 				repositoryLocalDirectoryPath,
-				Instances.CommitMessages.InitialCommit,
+				Instances.CommitMessages.InitialCommit.Value,
 				logger);
 
 			logger.LogInformation($"Performed initial commit:\n\t{repositoryLocalDirectoryPath}");
