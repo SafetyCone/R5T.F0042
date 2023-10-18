@@ -64,7 +64,7 @@ namespace R5T.F0042
 
 			logger.LogInformation("Checking if gitignore file exists...");
 
-			var gitIgnoreFileExists = Instances.FileSystemOperator.FileExists(gitIgnoreFilePath);
+			var gitIgnoreFileExists = Instances.FileSystemOperator.Exists_File(gitIgnoreFilePath);
 			if (gitIgnoreFileExists)
 			{
 				logger.LogInformation($"Gitignore file exists:{Environment.NewLine}\t{gitIgnoreFilePath}");
