@@ -6,8 +6,6 @@ using Microsoft.Extensions.Logging;
 using R5T.F0041;
 using R5T.T0132;
 
-using N000 = R5T.F0042.N000;
-
 
 namespace R5T.F0042
 {
@@ -73,7 +71,7 @@ namespace R5T.F0042
 			{
 				logger.LogInformation($"Gitignore file does not exist. Copying template file...{Environment.NewLine}\tSource: {Instances.TemplateFilePaths.GitIgnoreTemplateFile}{Environment.NewLine}\tDestination: {gitIgnoreFilePath}");
 
-				Instances.FileSystemOperator.CopyFile(
+				Instances.FileSystemOperator.Copy_File(
 					Instances.TemplateFilePaths.GitIgnoreTemplateFile,
 					gitIgnoreFilePath);
 

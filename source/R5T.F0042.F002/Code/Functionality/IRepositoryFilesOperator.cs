@@ -17,7 +17,7 @@ namespace R5T.F0042.F002
             var sourceGitIgnoreFilePath = Instances.TemplateFilePaths.GitIgnoreTemplateFile;
             var destinationGitIgnoreFilePath = Instances.RepositoryPathsOperator.GetGitIgnoreFilePath(repositoryDirectoryPath);
 
-            Instances.FileSystemOperator.CopyFile_OverwriteForbidden(
+            Instances.FileSystemOperator.Copy_File_OverwriteForbidden(
                 sourceGitIgnoreFilePath,
                 destinationGitIgnoreFilePath);
 
@@ -33,7 +33,7 @@ namespace R5T.F0042.F002
             var sourceGitIgnoreFilePath = Instances.TemplateFilePaths.GitIgnoreTemplateFile;
             var destinationGitIgnoreFilePath = Instances.RepositoryPathsOperator.GetGitIgnoreFilePath(repositoryDirectoryPath);
 
-            Instances.FileSystemOperator.CopyFile_OverwriteAllowed(
+            Instances.FileSystemOperator.Copy_File_OverwriteAllowed(
                 sourceGitIgnoreFilePath,
                 destinationGitIgnoreFilePath);
 
