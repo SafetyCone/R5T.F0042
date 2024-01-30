@@ -41,13 +41,13 @@ namespace R5T.F0042
         public void Delete_Idempotent(
             string localRepositoryDirectoryPath)
         {
-            F0000.FileSystemOperator.Instance.DeleteDirectory_Idempotent(localRepositoryDirectoryPath);
+			Instances.FileSystemOperator.Delete_Directory_Idempotent(localRepositoryDirectoryPath);
         }
 
         public void Delete(
 			string localRepositoryDirectoryPath)
 		{
-            F0000.FileSystemOperator.Instance.DeleteDirectory_NonIdempotent(localRepositoryDirectoryPath);
+			Instances.FileSystemOperator.Delete_Directory_NonIdempotent(localRepositoryDirectoryPath);
         }
 
 		public bool RepositoryExists(string repositoryOwnerName, string repositoryName)
@@ -62,7 +62,7 @@ namespace R5T.F0042
 
 		public bool RepositoryExists(string repositoryDirectoryPath)
 		{
-			var output = Instances.FileSystemOperator.DirectoryExists(repositoryDirectoryPath);
+			var output = Instances.FileSystemOperator.Exists_Directory(repositoryDirectoryPath);
 			return output;
 		}
 
@@ -77,7 +77,7 @@ namespace R5T.F0042
 
 		public void VerifyRepositoryDoesNotExist(string repositoryDirectoryPath)
 		{
-			var directoryExists = Instances.FileSystemOperator.DirectoryExists(repositoryDirectoryPath);
+			var directoryExists = Instances.FileSystemOperator.Exists_Directory(repositoryDirectoryPath);
 			if (directoryExists)
 			{
 				throw new Exception($"Repository exists. Directory exists: {repositoryDirectoryPath}");

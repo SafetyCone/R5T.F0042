@@ -89,7 +89,7 @@ namespace R5T.F0042
 
 			logger.LogInformation("Checking if repository source directory exists.");
 
-			var repositorySourceDirectoryExists = Instances.FileSystemOperator.DirectoryExists(repositorySourceDirectoryPath);
+			var repositorySourceDirectoryExists = Instances.FileSystemOperator.Exists_Directory(repositorySourceDirectoryPath);
 			if (repositorySourceDirectoryExists)
 			{
 				logger.LogInformation($"Repository source directory exists:{Environment.NewLine}\t{repositorySourceDirectoryPath}");
@@ -118,7 +118,7 @@ namespace R5T.F0042
 			// Delete local.
 			logger.LogInformation("Deleting local directory repository...");
 
-			Instances.FileSystemOperator.DeleteDirectory_OkIfNotExists(repositoryDirectoryPath);
+			Instances.FileSystemOperator.Delete_Directory_OkIfNotExists(repositoryDirectoryPath);
 
 			logger.LogInformation("Deleted local directory repository.");
 

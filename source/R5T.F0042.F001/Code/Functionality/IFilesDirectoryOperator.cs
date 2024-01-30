@@ -11,7 +11,7 @@ namespace R5T.F0042.F001
 	{
         public new string GetFilesDirectoryPath()
         {
-            var filesDirectoryPath = Instances.PathOperator.GetDirectoryPath(
+            var filesDirectoryPath = Instances.PathOperator.Get_DirectoryPath(
                 F0091.DirectoryPaths.Instance.FilesDirectoryPath,
                 DirectoryNames.Instance.ProjectSpecificFilesDirectory);
 
@@ -20,7 +20,7 @@ namespace R5T.F0042.F001
 
         public string GetFilePath(string fileName)
         {
-            var filePath = Instances.PathOperator.GetFilePath(
+            var filePath = Instances.PathOperator.Get_FilePath(
                 DirectoryPaths.Instance.FilesDirectoryPath,
                 fileName);
 
