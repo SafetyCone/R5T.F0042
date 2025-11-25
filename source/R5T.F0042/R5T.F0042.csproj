@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>1573;1587;1591</NoWarn>
   </PropertyGroup>
@@ -9,7 +9,7 @@
     <Authors>DCoats</Authors>
     <Company>Rivet</Company>
     <Copyright>Copyright (c) Rivet 2022</Copyright>
-    <Description>--- ADD DESCRIPTION ---</Description>
+    <Description>Repository functionality (RepositoryOperator, RemoteRepositoryOperator, LocalRepositoryOperator).</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/SafetyCone/R5T.F0042.git</RepositoryUrl>
